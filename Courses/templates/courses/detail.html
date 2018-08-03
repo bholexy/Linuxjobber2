@@ -1,0 +1,114 @@
+
+
+
+
+{% extends 'courses/base.html' %}
+
+{% block title %}
+	 {{object.lab_title}}realhhh
+{% endblock %}
+
+
+{% block head %}
+	{{object.course_title}}
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+
+
+
+    <div class="container">
+ 
+
+	
+		{{result}}
+		{{ lab_details }}
+	<section class="col-md-12 fundamentalmain">	
+	
+		<div class="workshop">
+	        <h6>{{object.lab_title}}ggg /t \t {{ object.lab_number }}</h6>
+	    </div>
+
+
+
+
+
+
+
+		{% for eachtask in object.labtasks_set.all %}
+			<p>
+				<strong>{{ eachtask.task_number }}.) </strong>
+				{{ eachtask.comment }} <br><br>
+			</p>
+				<strong>Note: </strong> {{ eachtask.note }} <br><br>
+				<strong>Task: </strong> {{ eachtask.task }} <br><br>
+			{% if eachtask.hint %}
+				<strong>Hint: </strong> {{ eachtask.hint }} <br><br><br><br>
+			{% endif %}
+		{% endfor %}
+
+
+
+			<form method="post" enctype="multipart/form-data">
+				
+				{% csrf_token %}
+
+				<label>Username: </label>
+				<input type="text" name="username">
+
+				{{ form.as_p }}
+
+				<button type="submit"> Upload </button>
+			</form>
+
+		 	<hr>
+{% for lab_pk in labs_pk  %}
+	{{ lab_pk.id }}
+
+{% endfor %}
+		 		<nav style="margin-left: 50px">
+		 		<ul class="pagination">
+		            {% for lab_pk in labs_pk  %}
+
+				      {% if forloop.counter == object.id %}
+				      	<!-- disable previous -->
+				      	<li  class="page-item disabled"><a class="page-link" href="#" tabindex="-1">Lab &nbsp {{forloop.counter}}</a></li>
+				     
+				      {% else %}
+				      	<!-- activate previous -->
+				     <li class="page-item">
+		              	<a class="page-link" href="{% url 'courses:lab_details' lab_pk.id %}" tabindex="-1">Lab &nbsp{{forloop.counter}}</a>
+		        	</li>
+				      {% endif %}				      
+				    {% endfor %}
+				</ul>
+				</nav>
+
+
+			<p style="text-align: center;"><a class="page-link" href="{% url 'courses:labs_home' %}">Return to home</a></p>
+	</section>
+
+	</div>
+
+
+{% endblock %}
+
+
+
+
+<!-- 
+<div>Number of labs{{number_of_all_labs}}  </div>
+<div> next page number:{{lab_tasks}}</div>
+<div> range number:{{lab_tasks.paginator.page_range }}</div>
+<div>last number:{{lab_tasks.last }}</div>
+<div>last number:{{lab_tasks.last_page }}</div>
+<div> first number:{{lab_tasks.first  }}</div>
+<div>has next:{{lab_tasks.has_next }}</div>
+<div>next page number:{{lab_tasks.next_page_number }}</div>
+<div>number of pages:{{lab_tasks.num_pages }} why</div>
+<div>has other pages:{{lab_tasks.has_other_pages }}</div> -->

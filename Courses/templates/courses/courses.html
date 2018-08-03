@@ -1,0 +1,47 @@
+
+
+
+
+{% extends 'courses/base.html' %}
+
+{% block title %}
+	 Linuxjobber Courses
+{% endblock %}
+
+
+{% block head %}
+	Linuxjobber Courses
+{% endblock %}
+
+
+
+
+
+
+{% block content %}
+
+
+
+    <div class="container">
+ 
+
+		<section class="col-md-12 fundamentalmain">	
+
+
+			{% for course in courses %}
+				<a href="{% url 'courses:labs_home' course.id %}">
+					<div class="list_div table-cell">
+						<strong>{{ course.course_title }}</strong>
+					</div>
+				</a>
+			{% endfor %}
+
+
+
+		</section>
+
+	</div>
+
+
+{% endblock %}
+
